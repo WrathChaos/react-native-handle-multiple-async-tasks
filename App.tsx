@@ -50,7 +50,7 @@ export default function App() {
     const pokemons = response.data.results;
     const pokeArray: Pokemon[] = [];
     await fetchAllPokemonData(pokemons, pokeArray);
-    setPokemonList(pokeArray.sort());
+    setPokemonList(pokeArray.sort((a, b) => a.id - b.id));
     console.log("All Pokemon Data Length: ", pokeArray.length);
   };
 
