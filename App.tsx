@@ -13,6 +13,7 @@ import { Pokemon, PokeResult } from "@services/models";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { capitalizeFirstLetter } from "utils";
+import fonts from "@fonts";
 LogBox.ignoreAllLogs();
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ? Just an example of a wrong way to handle multiple async tasks
   // const wrongWaytoHandleMultipleRequests = async () => {
   //   const response = await axios.get(
   //     "https://pokeapi.co/api/v2/pokemon?limit=10",
@@ -48,7 +50,7 @@ export default function App() {
     const pokemons = response.data.results;
     const pokeArray: Pokemon[] = [];
     await fetchAllPokemonData(pokemons, pokeArray);
-    setPokemonList(pokeArray);
+    setPokemonList(pokeArray.sort());
     console.log("All Pokemon Data Length: ", pokeArray.length);
   };
 
@@ -60,6 +62,10 @@ export default function App() {
       }),
     );
   };
+
+  /* -------------------------------------------------------------------------- */
+  /*                               Render Methods                               */
+  /* -------------------------------------------------------------------------- */
 
   const renderPokemon = (pokeData: Pokemon) => {
     const { name, sprites } = pokeData;
@@ -113,6 +119,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 16,
     color: "#333",
-    fontWeight: "500",
+    fontFamily: fonts.montserrat.medium,
   },
 });
